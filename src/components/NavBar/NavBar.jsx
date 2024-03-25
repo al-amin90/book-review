@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 const NavBar = () => {
     const links = <>
-        <li><Link to="/" className="border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold">Home</Link></li>
-        <li><Link to="/listed-books">Listed Books</Link></li>
-        <li><Link to="/page-read">Pages to Read</Link></li>
-        <li><Link>More</Link></li>
-        <li><Link>Ase</Link></li>
+        <li><NavLink to="/" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Home</NavLink></li>
+        <li><NavLink to="/listed-books" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Listed Books</NavLink></li>
+        <li><NavLink to="/page-read" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Pages to Read</NavLink></li>
+        <li><NavLink to="/more" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>More</NavLink></li>
+        <li><NavLink to="/ase" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Ase</NavLink></li>
     </>
 
 
@@ -23,16 +23,16 @@ const NavBar = () => {
                             {links}
                         </ul>
                     </div>
-                    <a className=" font-bold text-2xl -ml-2">Book Vibe</a>
+                    <a className=" font-bold text-xl md:text-2xl md:-ml-2">Book Vibe</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="flex items-center justify-center gap-6 px-1">
+                    <ul className="flex items-center justify-center gap-3 px-1">
                         {links}
                     </ul>
                 </div>
                 <div className="navbar-end gap-3 *:text-white font-semibold text-lg">
-                    <Link className="btn md:flex hidden bg-[#23BE0A]">Sign In</Link>
-                    <Link className="btn bg-[#59C6D2]">Sign Up</Link>
+                    <button className="btn md:flex hidden bg-[#23BE0A]">Sign In</button>
+                    <button className="btn bg-[#59C6D2]">Sign Up</button>
                 </div>
             </div>
         </div>
