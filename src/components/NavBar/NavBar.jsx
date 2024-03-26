@@ -6,7 +6,7 @@ const NavBar = () => {
         <li><NavLink to="/" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Home</NavLink></li>
         <li><NavLink to="/listed-books" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Listed Books</NavLink></li>
         <li><NavLink to="/page-read" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Pages to Read</NavLink></li>
-        <li><NavLink to="/more" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>More</NavLink></li>
+        <li><NavLink to="/buy-book" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Store</NavLink></li>
         <li><NavLink to="/ase" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Ase</NavLink></li>
     </>
 

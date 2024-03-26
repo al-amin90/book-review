@@ -6,10 +6,12 @@ import WishlistBooks from "../../components/WishlistBooks/WishlistBooks";
 
 const ListedBooks = () => {
     const [index, setIndex] = useState(0);
-    const [displayWishBooks, setDisplayWishBooks] = useState([])
     const [displayReadBooks, setDisplayReadBooks] = useState([])
+    const [displayWishBooks, setDisplayWishBooks] = useState([])
 
+    // const [displaySortReadBooks, setDisplaySortReadBooks] = useState(displayReadBooks);
     const allBooks = useLoaderData();
+
     console.log(allBooks);
 
 
@@ -35,7 +37,13 @@ const ListedBooks = () => {
     }, [allBooks])
 
 
-
+    const handleFilter = value => {
+        if ("rating" === value) {
+            const desenSort = displayReadBooks.sort((a, b) => b.totalPages - a.totalPages);
+            setDisplaySortReadBooks(desenSort);
+            console.log(desenSort);
+        }
+    }
 
     return (
         <div >
@@ -44,8 +52,8 @@ const ListedBooks = () => {
             </div>
             {/* select option here  */}
             <div className="flex mt-7 mb-10 items-center justify-center">
-                <select className="select text-white font-semibold text-base bg-[#23BE0A] select-bordered">
-                    <option value={""} className="text-white">Sort By?</option>
+                <select onChange={(e) => handleFilter(e.target.value)} className="select text-white font-semibold text-base bg-[#23BE0A] select-bordered">
+                    <option disabled selected value={""} className="text-white">Sort By?</option>
                     <option value="rating">Rating</option>
                     <option value="pages">Number of pages</option>
                     <option value="publisher">Publisher year</option>
