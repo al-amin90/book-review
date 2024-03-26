@@ -10,6 +10,7 @@ import PagestoRead from './pages/PagestoRead/PagestoRead';
 import BookDetails from './pages/BookDetails/BookDetails';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Store from './pages/Store/Store';
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/buy-book",
-        element: <h2>Buy books</h2>,
+        element: <Store></Store>,
         loader: () => fetch('/books.json')
       },
     ]

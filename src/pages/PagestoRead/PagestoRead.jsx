@@ -4,7 +4,7 @@ import { getStorage } from "../../ulils/localStorage";
 import { useLoaderData } from "react-router-dom";
 
 
-const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
+const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink', '#FFBB28', '#FF8042', '#FF8042', '#0088FE'];
 
 const data = [
     {
