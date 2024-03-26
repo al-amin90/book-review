@@ -9,7 +9,7 @@ const ListedBooks = () => {
     const [displayReadBooks, setDisplayReadBooks] = useState([])
     const [displayWishBooks, setDisplayWishBooks] = useState([])
 
-    const [displaySortReadBooks, setDisplaySortReadBooks] = useState([]);
+    const [displaySortReadBooks, setDisplaySortReadBooks] = useState(displayReadBooks);
     const allBooks = useLoaderData();
 
 
@@ -30,27 +30,39 @@ const ListedBooks = () => {
         // checking if data fetched ------------
         if (allBooks.length > 0) {
 
-            if (index === 0) {
-                setDisplayReadBooks(storedBooks);
-                setDisplaySortReadBooks(storedBooks)
-
-            }
-            else {
-                setDisplayWishBooks(storedBooks);
-            }
+            index === 0 ? setDisplayReadBooks(storedBooks) : setDisplayWishBooks(storedBooks);
         }
 
     }, [allBooks])
 
 
     const handleFilter = value => {
-        if ("rating" === value) {
-            const desenSort = displayReadBooks.sort((a, b) => b.totalPages - a.totalPages);
-            console.log(desenSort);
-            setDisplaySortReadBooks(desenSort)
+        if ("pages" === value) {
+            const desenSortR = displayReadBooks.sort((a, b) => b.totalPages - a.totalPages);
+            setDisplayReadBooks([...desenSortR]);
+
+            const desenSortW = displayWishBooks.sort((a, b) => b.totalPages - a.totalPages);
+            setDisplayWishBooks([...desenSortW]);
+
+        }
+        else if ("rating" === value) {
+            const desenSortR = displayReadBooks.sort((a, b) => b.rating - a.rating);
+            setDisplayReadBooks([...desenSortR]);
+
+            const desenSortW = displayWishBooks.sort((a, b) => b.rating - a.rating);
+            setDisplayWishBooks([...desenSortW]);
+        }
+        else if ("publisher" === value) {
+            const desenSortR = displayReadBooks.sort((a, b) => b.yearOfPublishing - a.yearOfPublishing);
+            setDisplayReadBooks([...desenSortR]);
+
+            const desenSortW = displayWishBooks.sort((a, b) => b.yearOfPublishing - a.yearOfPublishing);
+            setDisplayWishBooks([...desenSortW]);
         }
     }
-    // console.log(displayReadBooks);
+
+
+    console.log(displayReadBooks);
 
     return (
         <div >
@@ -83,10 +95,12 @@ const ListedBooks = () => {
 
             <div className="flex flex-col gap-5 mb-24">
                 {
-                    index === 0 && displaySortReadBooks.map(book => <WishlistBooks
+                    index === 0 && displayReadBooks.map(book => <WishlistBooks
                         key={book.bookId}
                         book={book}></WishlistBooks>)
                 }
+
+
                 {
                     index === 1 && displayWishBooks.map(book => <WishlistBooks
                         key={book.bookId}
