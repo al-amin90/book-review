@@ -32,7 +32,7 @@ const ListedBooks = () => {
             index === 0 ? setDisplayReadBooks(storedBooks) : setDisplayWishBooks(storedBooks);
         }
 
-    }, [])
+    }, [allBooks])
 
 
 
