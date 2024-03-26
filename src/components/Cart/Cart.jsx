@@ -1,13 +1,10 @@
 
-import { remainCredit } from "../../pages/Store/Store";
-
 
 const Cart = ({ carts, handleRemoveCart }) => {
-    const creditTotal = carts.reduce((p, c) => p + c.credit, 0);
 
     return (
         <div className="p-4 mt-7 border bg-white rounded-lg">
-            <h2 className="text-xl mt-4 mb-5 font-bold text-[#23BE0A]">Books Name</h2>
+            <h2 className="text-xl mt-4 mb-5 font-bold text-[#59C6D2]">Books Name</h2>
             <ol className='text-sm font-normal pb-5 border-b border-[#1C1B1B33]'>
                 {
                     carts.map((cart, idx) => <div>

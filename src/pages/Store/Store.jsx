@@ -3,7 +3,6 @@ import StoreCards from "../../components/StoreCards/StoreCards";
 import Cart from "../../components/Cart/Cart";
 import { useLoaderData } from "react-router-dom";
 
-export const remainCredit = 15;
 
 const Store = () => {
     const [carts, setCarts] = useState([])
@@ -16,13 +15,6 @@ const Store = () => {
 
     // add to cart 
     const handleAddToCart = (course, id) => {
-
-        const totalCredit = carts.reduce((p, c) => p + c.credit, 0)
-        if (totalCredit + course.credit > remainCredit) {
-            return toast.error(`Can't Add More than, ${remainCredit} Credit!!!`)
-        }
-
-
         const isAddCart = carts.find(c => c.id === id);
         if (!isAddCart) {
             setCarts([...carts, course]);
@@ -36,7 +28,7 @@ const Store = () => {
     // remove from cart 
     const handleRemoveCart = id => {
 
-        const remainCart = carts.filter(cart => cart.id !== id);
+        const remainCart = carts.filter(cart => cart.bookId !== id);
         setCarts(remainCart);
     }
 
