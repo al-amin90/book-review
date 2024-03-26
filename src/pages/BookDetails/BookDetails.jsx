@@ -20,7 +20,7 @@ const BookDetails = () => {
                 <p className="text-lg font-medium py-3 border-b border-[#13131326]"> {category}</p>
                 <p className='text-sm my-5 font-normal text-[#131313B3]'><span className='text-[#131313] font-bold'>Review:</span> {review}</p>
 
-                <div className="flex items-center gap-3 py-5 border-b border-[#13131326]">
+                <div className="flex items-start lg:items-center gap-3 py-5 border-b border-[#13131326]">
                     <h6 className='text-[#131313] font-bold text-base'>Tag</h6>
                     <div className='*:bg-[#23BE0A0D] flex flex-wrap *:rounded-full *:text-sm font-medium text-[#23BE0A] gap-2 *:py-2 *:px-4'>
                         {
@@ -57,7 +57,7 @@ const BookDetails = () => {
                 </table>
 
                 <div className="mt-5 flex gap-3  font-semibold text-lg">
-                    <button className="btn text-[#131313] border border-[#1313134D] md:flex hidden ">Read</button>
+                    <button className="btn text-[#131313] border border-[#1313134D]  ">Read</button>
                     <button className="btn text-white bg-[#59C6D2]">Wishlist</button>
                 </div>
             </div>
