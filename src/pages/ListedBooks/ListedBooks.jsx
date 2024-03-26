@@ -17,16 +17,17 @@ const ListedBooks = () => {
 
 
         // const storedBooks = allBooks.filter(book => storeBooksId.includes(book.bookId));
+        // finding data useing id ----------
         const storedBooks = [];
         for (const id of storeBooksId) {
             const book = allBooks.find(book => id === book.bookId)
             storedBooks.push(book)
         }
-        console.log(storedBooks);
 
 
+        // checking if data fetched ------------
         if (allBooks.length > 0) {
-            console.log(storedBooks);
+
             index === 0 ? setDisplayReadBooks(storedBooks) : setDisplayWishBooks(storedBooks);
         }
 

@@ -3,7 +3,7 @@ import { GoPeople } from "react-icons/go";
 import { HiOutlineDocumentChartBar } from "react-icons/hi2";
 
 const WishlistBooks = ({ book }) => {
-    const { bookId, bookName, author, image, category, tags, publisher, totalPages, rating, yearOfPublishing, review } = book;
+    const { bookId, bookName, author, image, category, tags, publisher, totalPages, rating, yearOfPublishing } = book;
 
     return (
         <div className="border border-[#13131326] rounded-xl p-5">

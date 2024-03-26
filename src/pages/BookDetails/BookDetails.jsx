@@ -12,11 +12,11 @@ const BookDetails = () => {
     const { bookId, bookName, author, image, category, tags, publisher, totalPages, rating, yearOfPublishing, review } = book;
 
     const handleAddWishlist = (id) => {
-        setStorage(id, "wishlist");
+        setStorage(id, "wishlist", false);
     }
 
     const handleAddRead = id => {
-        setStorage(id, "read");
+        setStorage(id, "read", true);
     }
 
     return (
