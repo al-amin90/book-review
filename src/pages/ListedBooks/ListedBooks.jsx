@@ -1,17 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import { GrLocation } from "react-icons/gr";
-import { GoPeople } from "react-icons/go";
-import { HiOutlineDocumentChartBar } from "react-icons/hi2";
+import { getStorage } from "../../ulils/localStorage";
+import WishlistBooks from "../../components/WishlistBooks/WishlistBooks";
 
 
 const ListedBooks = () => {
     const [index, setIndex] = useState(0);
-    const allBooks = useLoaderData();
-    // const { id } = useParams();
+    const [displayWishBooks, setDisplayWishBooks] = useState([])
+    const [displayReadBooks, setDisplayReadBooks] = useState([])
 
-    // const book = allBooks.find(sBook => sBook.bookId === +id);
-    const { bookId, bookName, author, image, category, tags, publisher, totalPages, rating, yearOfPublishing, review } = allBooks[0];
+    const allBooks = useLoaderData();
+
+
+    useEffect(() => {
+        const storeBooksId = index === 0 ? getStorage("read") : getStorage("wishlist");
+
+
+        // const storedBooks = allBooks.filter(book => storeBooksId.includes(book.bookId));
+        const storedBooks = [];
+        for (const id of storeBooksId) {
+            const book = allBooks.find(book => id === book.bookId)
+            storedBooks.push(book)
+        }
+        console.log(storedBooks);
+
+
+        if (allBooks.length > 0) {
+            console.log(storedBooks);
+            index === 0 ? setDisplayReadBooks(storedBooks) : setDisplayWishBooks(storedBooks);
+        }
+
+    }, [allBooks])
+
+
+
 
     return (
         <div >
@@ -42,47 +64,19 @@ const ListedBooks = () => {
             </div>
 
 
-            <div className="border border-[#13131326] rounded-xl p-5 mb-24">
-
-                <div className="flex gap-5 flex-col md:flex-row">
-                    <div className="rounded-xl flex  items-center justify-center p-6 bg-[#F3F3F3] ">
-                        <img src={image} alt="Shoes" /></div>
-                    <div className="flex-grow">
-                        <h2 className="font-bold text-2xl font-fair text-[#131313] mb-3"> {bookName}
-                        </h2>
-                        <p className="text-base font-medium pb-4">By : {author}</p>
-
-                        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-3 pb-3">
-                            <div className="flex items-start lg:items-center gap-3">
-                                <h6 className='text-[#131313] font-bold text-base'>Tag</h6>
-                                <div className='*:bg-[#23BE0A0D] flex flex-wrap *:rounded-full *:text-sm font-medium text-[#23BE0A] gap-2 *:py-2 *:px-4'>
-                                    {
-                                        tags.map(tag => <h5 key={tag}>#{tag}</h5>)
-                                    }
-                                </div>
-                            </div>
-                            <div>
-                                <div className="flex items-center gap-2"><GrLocation className="text-xl" />Year of Publishing: {yearOfPublishing}</div>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col md:flex-row items-start md:items-center pb-3 gap-3 border-b border-[#13131326]">
-                            <div className="flex items-center gap-2 mr-6"><GoPeople className="text-xl" />Publisher: {publisher}</div>
-                            <div className="flex items-center gap-2">
-                                <HiOutlineDocumentChartBar className="text-xl" /> Page {totalPages}
-                            </div>
-                        </div>
-
-
-                        <div className="mt-5 flex flex-wrap *:rounded-full *:text-sm font-normal gap-3 *:py-2 *:px-4">
-                            <button className="bg-[#328EFF26] text-[#328EFF]">Category: {category}</button>
-                            <button className="bg-[#FFAC3326] text-[#FFAC33]">Rating: {rating}</button>
-                            <button className="bg-[#23BE0A] text-white">View Details</button>
-                        </div>
-                    </div>
-                </div>
+            <div className="flex flex-col gap-5 mb-24">
+                {
+                    index === 0 && displayReadBooks.map(book => <WishlistBooks
+                        key={book.bookId}
+                        book={book}></WishlistBooks>)
+                }
+                {
+                    index === 1 && displayWishBooks.map(book => <WishlistBooks
+                        key={book.bookId}
+                        book={book}></WishlistBooks>)
+                }
             </div>
-        </div>
+        </div >
     );
 };
 

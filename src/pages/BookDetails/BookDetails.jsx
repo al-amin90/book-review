@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { FaRegStar } from "react-icons/fa";
+import { setStorage } from '../../ulils/localStorage';
+
 
 const BookDetails = () => {
     const allBooks = useLoaderData();
@@ -8,6 +10,14 @@ const BookDetails = () => {
 
     const book = allBooks.find(sBook => sBook.bookId === +id);
     const { bookId, bookName, author, image, category, tags, publisher, totalPages, rating, yearOfPublishing, review } = book;
+
+    const handleAddWishlist = (id) => {
+        setStorage(id, "wishlist");
+    }
+
+    const handleAddRead = id => {
+        setStorage(id, "read");
+    }
 
     return (
         <div className="grid grid-cols-1 gap-11 lg:grid-cols-2 mb-24 h-full ">
@@ -57,8 +67,12 @@ const BookDetails = () => {
                 </table>
 
                 <div className="mt-5 flex gap-3  font-semibold text-lg">
-                    <button className="btn text-[#131313] border border-[#1313134D]  ">Read</button>
-                    <button className="btn text-white bg-[#59C6D2]">Wishlist</button>
+                    <button
+                        onClick={() => handleAddRead(bookId)}
+                        className="btn text-[#131313] hover:bg-[#23BE0A] hover:text-white border border-[#1313134D]  ">Read</button>
+                    <button
+                        onClick={() => handleAddWishlist(bookId)}
+                        className="btn text-white bg-[#59C6D2]">Wishlist</button>
                 </div>
             </div>
         </div>
