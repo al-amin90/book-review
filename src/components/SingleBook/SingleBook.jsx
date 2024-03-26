@@ -7,12 +7,12 @@ const SingleBook = ({ book }) => {
 
     return (
         <Link to={`/book/${bookId}`}>
-            <div className="border border-[#13131326] rounded-xl p-5 cursor-pointer">
+            <div className="border border-[#13131326] flex flex-col h-full rounded-xl p-5 cursor-pointer">
                 <figure className="rounded-xl flex items-center justify-center bg-[#F3F3F3] p-8"><img className="" src={image} alt="Shoes" /></figure>
-                <div className="">
+                <div className="flex-grow">
                     <div className="flex flex-wrap *:bg-[#23BE0A0D] *:rounded-full *:text-sm font-medium text-[#23BE0A] gap-2 *:py-2 *:px-4 mt-5">
                         {
-                            tags.map(tag => <h5>{tag}</h5>)
+                            tags.map(tag => <h5 key={tag}>{tag}</h5>)
                         }
                     </div>
                     <h2 className="font-bold text-2xl font-fair text-[#131313] my-3"> {bookName}
