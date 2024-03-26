@@ -24,7 +24,7 @@ const setStorage = (id, Sname, isReaded) => {
 
     // normal local storage work 
     if (exits) {
-        toast.error(`You Already Added to ${Sname}`);
+        toast.error(`Already Added this to ${Sname}`);
     }
     else {
         const readData = getStorage("read");

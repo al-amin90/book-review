@@ -10,6 +10,7 @@ const ListedBooks = () => {
     const [displayReadBooks, setDisplayReadBooks] = useState([])
 
     const allBooks = useLoaderData();
+    console.log(allBooks);
 
 
     useEffect(() => {
@@ -31,7 +32,7 @@ const ListedBooks = () => {
             index === 0 ? setDisplayReadBooks(storedBooks) : setDisplayWishBooks(storedBooks);
         }
 
-    }, [allBooks])
+    }, [])
 
 
 

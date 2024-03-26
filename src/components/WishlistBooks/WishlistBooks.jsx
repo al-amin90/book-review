@@ -1,6 +1,7 @@
 import { GrLocation } from "react-icons/gr";
 import { GoPeople } from "react-icons/go";
 import { HiOutlineDocumentChartBar } from "react-icons/hi2";
+import { Link } from "react-router-dom";
 
 const WishlistBooks = ({ book }) => {
     const { bookId, bookName, author, image, category, tags, publisher, totalPages, rating, yearOfPublishing } = book;
@@ -37,10 +38,14 @@ const WishlistBooks = ({ book }) => {
                     </div>
 
 
-                    <div className="mt-5 flex flex-wrap *:rounded-full *:text-sm font-normal gap-3 *:py-2 *:px-4">
-                        <button className="bg-[#328EFF26] text-[#328EFF]">Category: {category}</button>
-                        <button className="bg-[#FFAC3326] text-[#FFAC33]">Rating: {rating}</button>
-                        <button className="bg-[#23BE0A] text-white">View Details</button>
+                    <div className="mt-5 flex flex-wrap gap-3 ">
+                        <h5 className="bg-[#328EFF26] rounded-full text-sm font-normal py-2 px-4 text-[#328EFF]">Category: {category}</h5>
+                        <h5 className="bg-[#FFAC3326] rounded-full text-sm font-normal py-2 px-4 text-[#FFAC33]">Rating: {rating}</h5>
+                        <Link
+                            className=""
+                            to={`/book/${bookId}`}>
+                            <button className="hover:opacity-70 rounded-full text-sm font-normal py-2 px-4 bg-[#23BE0A] text-white">View Details</button>
+                        </Link>
                     </div>
                 </div>
             </div>
