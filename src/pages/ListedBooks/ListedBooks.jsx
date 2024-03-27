@@ -73,7 +73,7 @@ const ListedBooks = () => {
             </div>
             {/* select option here  */}
             <div className="flex mt-7 mb-10 items-center justify-center">
-                <select onChange={(e) => handleFilter(e.target.value)} defaultValue={``} className="select text-white font-semibold text-base bg-[#23BE0A] select-bordered">
+                <select onChange={(e) => handleFilter(e.target.value)} defaultValue={``} className="select text-white font-semibold text-base bg-[#23BE0A] select-bordered *:rounded-3xl">
                     <option value={""} className="text-white">Sort By?</option>
                     <option value="rating">Rating</option>
                     <option value="pages">Number of pages</option>
@@ -81,7 +81,7 @@ const ListedBooks = () => {
                 </select>
             </div>
 
-            <div className="flex items-center -mx-4 overflow-x-auto overflow-y-hidden sm:justify-start mb-7 flex-nowrap dark:bg-gray-100 dark:text-gray-800">
+            <div className="flex items-end overflow-x-auto overflow-y-hidden sm:justify-start mb-7 flex-nowrap dark:bg-gray-100 dark:text-gray-800">
                 <Link
                     onClick={() => setIndex(0)}
                     className={`flex items-center flex-shrink-0 px-5 py-3 space-x-2  ${index === 0 ? "border border-b-0" : "border-b text-[#13131380]"} rounded-t-lg dark:border-gray-600 `}>
@@ -92,6 +92,9 @@ const ListedBooks = () => {
                     className={`flex items-center flex-shrink-0 px-5 py-3 space-x-2  ${index === 1 ? "border border-b-0" : "border-b text-[#13131380]"} rounded-t-lg dark:border-gray-600 `}>
                     <span>Wishlist Books</span>
                 </Link>
+                <div className="border-b items-end w-full">
+                    <h1 className="hidden">dfdf</h1>
+                </div>
             </div>
 
 
