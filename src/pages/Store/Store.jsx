@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import StoreCards from "../../components/StoreCards/StoreCards";
 import Cart from "../../components/Cart/Cart";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
 
 const Store = () => {
     const [carts, setCarts] = useState([])
     const [courses, setCourses] = useState([])
     const allBooks = useLoaderData();
+
+    const navigation = useNavigation();
 
     useEffect(() => {
         setCourses(allBooks)
@@ -31,7 +34,7 @@ const Store = () => {
         const remainCart = carts.filter(cart => cart.bookId !== id);
         setCarts(remainCart);
     }
-
+    if (navigation.state === "loading") return <Loader></Loader>
     return (
         <div>
             <div className="bg-[#1313130D] rounded-xl p-7">

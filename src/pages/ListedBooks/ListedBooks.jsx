@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigation } from "react-router-dom";
 import { getStorage } from "../../ulils/localStorage";
 import WishlistBooks from "../../components/WishlistBooks/WishlistBooks";
+import Loader from "../Loader/Loader";
 
 
 const ListedBooks = () => {
@@ -9,7 +10,8 @@ const ListedBooks = () => {
     const [displayReadBooks, setDisplayReadBooks] = useState([])
     const [displayWishBooks, setDisplayWishBooks] = useState([])
 
-    const [displaySortReadBooks, setDisplaySortReadBooks] = useState(displayReadBooks);
+    const navigation = useNavigation();
+
     const allBooks = useLoaderData();
 
 
@@ -62,8 +64,8 @@ const ListedBooks = () => {
     }
 
 
-    console.log(displayReadBooks);
 
+    if (navigation.state === "loading") return <Loader></Loader>
     return (
         <div >
             <div className="bg-[#1313130D] rounded-xl p-7">

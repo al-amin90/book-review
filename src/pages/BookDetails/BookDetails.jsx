@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData, useNavigation, useParams } from 'react-router-dom';
 import { FaRegStar } from "react-icons/fa";
 import { setStorage } from '../../ulils/localStorage';
+import Loader from '../Loader/Loader';
 
 
 const BookDetails = () => {
     const allBooks = useLoaderData();
     const { id } = useParams();
+    const navigation = useNavigation()
 
     const book = allBooks.find(sBook => sBook.bookId === +id);
     const { bookId, bookName, author, image, category, tags, publisher, totalPages, rating, yearOfPublishing, review } = book;
@@ -19,6 +21,7 @@ const BookDetails = () => {
         setStorage(id, "read", true);
     }
 
+    if (navigation.state === "loading") return <Loader></Loader>
     return (
         <div className="grid grid-cols-1 gap-11 lg:grid-cols-2 mb-24 h-full ">
             <div className="rounded-xl flex items-center justify-center p-10 bg-[#F3F3F3] ">

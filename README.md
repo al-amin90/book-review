@@ -13,7 +13,7 @@ https://abc34fparsimonious-able.surge.sh/
 ## Features and Characteristics
 
 - Book Reviews: Access a vast collection of book reviews to discover your next read.
-- when data load it show loader
+- When data load it show loader
 - Book Storage: Store and organize your read and wishlist books for easy access and management.
 - It's a responsive website, where user can use any platform
 - Online Store: Browse through our bookstore, where you can purchase a wide selection of books.

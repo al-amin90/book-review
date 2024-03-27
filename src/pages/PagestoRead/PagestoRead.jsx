@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid } from "recharts";
 import { getStorage } from "../../ulils/localStorage";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
 
 const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink', '#FFBB28', '#FF8042', '#FF8042', '#0088FE'];
@@ -74,6 +75,8 @@ const PagestoRead = () => {
     const [readBooks, setReadBooks] = useState([])
     const allBooks = useLoaderData();
 
+    const navigation = useNavigation();
+
     useEffect(() => {
         const readBooks = getStorage("read");
 
@@ -85,9 +88,9 @@ const PagestoRead = () => {
         setReadBooks(storedBooks)
     }, [])
 
-    console.log(readBooks);
 
 
+    if (navigation.state === "loading") return <Loader></Loader>
     return (
         <div className="flex items-center justify-center bg-[#13131308] rounded-xl">
             <BarChart
