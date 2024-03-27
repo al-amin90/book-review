@@ -33,7 +33,7 @@ const NavBar = () => {
                 <div className="navbar-end gap-3 *:text-white font-semibold text-lg">
                     <button className="btn md:flex hidden bg-[#23BE0A]">Sign In</button>
                     <Link to="/contact">
-                        <button className="btn bg-[#59C6D2]">Sign Up</button>
+                        <button className="btn text-white bg-[#59C6D2]">Sign Up</button>
                     </Link>
                 </div>
             </div>
