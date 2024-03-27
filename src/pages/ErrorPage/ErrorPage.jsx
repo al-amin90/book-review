@@ -8,10 +8,10 @@ const ErrorPage = () => {
     return (
         <div className="flex flex-col min-h-screen items-center justify-center">
             <div className="text-center space-y-5">
-                <h1>Oops!</h1>
-                <p>Sorry, an unexpected error has occurred.</p>
-                <p>
-                    <i>{error.statusText || error.message}</i>
+                <h1 className="text-5xl font-bold">Oops!</h1>
+                <p className="text-xl font-medium">Sorry, an unexpected error has occurred.</p>
+                <p className="font-medium">
+                    <i>Page {error.statusText || error.message}</i>
                 </p>
             </div>
         </div>
