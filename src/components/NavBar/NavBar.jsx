@@ -1,12 +1,27 @@
-import { Link, NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../routes/AuthProvider";
 
 
 const NavBar = () => {
+    const { user, logOutUser } = useContext(AuthContext)
+
+    const navigate = useNavigate(null);
+
+
+    const handleLogOut = () => {
+        logOutUser()
+            .then(() => "log out successfully")
+        navigate('/singIn')
+    }
+
     const links = <>
         <li><NavLink to="/" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Home</NavLink></li>
         <li><NavLink to="/listed-books" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Listed Books</NavLink></li>
         <li><NavLink to="/page-read" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Pages to Read</NavLink></li>
-        <li><NavLink to="/buy-book" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Store</NavLink></li>
+        {
+            user && <li><NavLink to="/buy-book" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Store</NavLink></li>
+        }
         <li><NavLink to="/contact" className={({ isActive }) => isActive ? "border btn bg-none border-[#23BE0A] text-[#23BE0A] font-semibold" : "btn bg-transparent border-none shadow-none"}>Contact</NavLink></li>
     </>
 
@@ -31,10 +46,20 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end gap-3 *:text-white font-semibold text-lg">
-                    <button className="btn md:flex hidden bg-[#23BE0A]">Sign In</button>
-                    <Link to="/contact">
-                        <button className="btn text-white bg-[#59C6D2]">Sign Up</button>
-                    </Link>
+                    {
+                        user ? <div>
+                            <button onClick={handleLogOut} className="btn text-white bg-[#59C6D2]">Log Out</button>
+                        </div>
+                            : <div className="flex gap-3">
+                                <Link to='/singIn'>
+                                    <button className="btn md:flex hidden bg-[#23BE0A]">Sign In</button>
+                                </Link>
+                                <Link to="/contact">
+                                    <button className="btn text-white bg-[#59C6D2]">Sign Up</button>
+                                </Link>
+                            </div>
+                    }
+
                 </div>
             </div>
         </div>

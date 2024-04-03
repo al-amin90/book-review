@@ -13,6 +13,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import Store from './pages/Store/Store';
 import Contact from './pages/Contact/Contact';
 import Loader from './pages/Loader/Loader';
+import SingIn from './pages/SingIn/SingIn';
+import AuthProvider from './routes/AuthProvider';
+import PrivateRoute from './routes/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +34,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/page-read",
-        element: <PagestoRead></PagestoRead>,
+        element: <PrivateRoute>
+          <PagestoRead></PagestoRead>,
+        </PrivateRoute>,
         loader: () => fetch('/books.json')
       },
       {
@@ -41,12 +46,18 @@ const router = createBrowserRouter([
       },
       {
         path: "/buy-book",
-        element: <Store></Store>,
+        element: <PrivateRoute>
+          <Store></Store>,
+        </PrivateRoute>,
         loader: () => fetch('/books.json')
       },
       {
         path: "/contact",
         element: <Contact></Contact>
+      },
+      {
+        path: "/singIn",
+        element: <SingIn></SingIn>
       },
     ]
   },
@@ -56,7 +67,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
     <ToastContainer />
   </React.StrictMode>,
 )
