@@ -42,7 +42,6 @@ const SingIn = () => {
             .then(result => {
                 console.log(result.user);
                 setSuccess("You successfully Log in")
-                navigate('/')
             })
             .catch(error => setError(error.message))
     }

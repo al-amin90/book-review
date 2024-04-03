@@ -1,4 +1,4 @@
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import { Link, useLocation, useNavigate, useNavigation } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import {
     Card,
@@ -7,34 +7,31 @@ import {
     Button,
     Typography,
 } from "@material-tailwind/react";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../routes/AuthProvider";
+import { sendEmailVerification, updateProfile } from "firebase/auth";
 
 
 
 const Contact = () => {
     const navigation = useNavigation();
-    const { createUser, singWithGoogle, singWithGithub } = useContext(AuthContext);
+    const { createUser, singWithGoogle, singWithGithub, singWithFacebook, user } = useContext(AuthContext);
 
     const navigate = useNavigate(null)
 
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
 
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
 
     const termsRef = useRef(null)
+
+    const location = useLocation();
 
 
     const handleGoogleSingUp = () => {
         singWithGoogle()
             .then(() => {
                 setSuccess("Account Create Successfully")
-                setTimeout(() => {
-                    navigate('/')
-                }, 2000)
             })
             .catch(error => console.log(error))
     }
@@ -43,20 +40,40 @@ const Contact = () => {
         singWithGithub()
             .then(() => {
                 setSuccess("Account Create Successfully")
-                setTimeout(() => {
-                    navigate('/')
-                }, 2000)
             })
             .catch(error => console.log(error))
     }
 
-    const handleSubmitSingUp = () => {
+    const handleFacebookSingUp = () => {
+        singWithFacebook()
+            .then(() => {
+                setSuccess("Account Create Successfully")
+            })
+            .catch(error => console.log(error))
+    }
+
+    useEffect(() => {
+        if (user) {
+            setTimeout(() => {
+                navigate(location.state)
+            }, 2000);
+        }
+    }, [user])
+
+    const handleSubmitSingUp = (e) => {
+        e.preventDefault()
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        const check = e.target.trems.checked;
+        console.log(name, email, password, check);
 
         // reset success & error
         setSuccess('')
         setError('')
 
-        // validation 
+        // validation
         if (!email) {
             return setError("Your Email is Empty")
         }
@@ -66,7 +83,7 @@ const Contact = () => {
         else if (!/^(?=.*[A-Z])(?=.*[#@$%^&*]).{8,}$/.test(password)) {
             return setError("Password must have upperCase & special char")
         }
-        else if (!termsRef.current.checked) {
+        else if (!e.target.trems.checked) {
             return setError("You need to agree trems and conditions")
         }
 
@@ -75,9 +92,17 @@ const Contact = () => {
             .then(result => {
                 console.log(result.user);
                 setSuccess("Account Create Successfully")
-                setTimeout(() => {
-                    navigate('/')
-                }, 2000)
+
+                updateProfile(result.user, {
+                    displayName: name,
+                    photoURL: "https://example.com/jane-q-user/profile.jpg",
+                })
+
+                sendEmailVerification(result.user)
+                    .then(() => {
+                        alert("please check your email and verify your account")
+                    })
+
             })
             .catch(error => {
                 const errSMS = error.message;
@@ -86,6 +111,8 @@ const Contact = () => {
                     )
                 else setError(error.message)
             })
+
+
 
     }
 
@@ -103,14 +130,15 @@ const Contact = () => {
                 </Typography>
 
 
-                <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+                <form onSubmit={handleSubmitSingUp} className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
                     <div className="mb-1 flex flex-col gap-6">
                         <Typography variant="h6" color="blue-gray" className="-mb-3">
                             Your Name
                         </Typography>
                         <Input
                             size="lg"
-                            onChange={e => setName(e.target.value)}
+                            name="name"
+                            required
                             placeholder="Your Name"
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
@@ -123,7 +151,7 @@ const Contact = () => {
                         <Input
                             size="lg"
                             name="email"
-                            onChange={e => setEmail(e.target.value)}
+                            required
                             placeholder="Your Email"
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
@@ -136,7 +164,8 @@ const Contact = () => {
                         <Input
                             type="password"
                             size="lg"
-                            onChange={e => setPassword(e.target.value)}
+                            name="password"
+                            required
                             placeholder="********"
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
@@ -144,8 +173,8 @@ const Contact = () => {
                             }}
                         />
                     </div>
-                    {/* <Checkbox
-                       
+                    <Checkbox
+                        name="trems"
                         label={
                             <Typography
                                 variant="small"
@@ -162,19 +191,22 @@ const Contact = () => {
                             </Typography>
                         }
                         containerProps={{ className: "-ml-2.5" }}
-                    /> */}
-                    <div className="mt-4">
+                    />
+                    {/* <div className="mt-4">
                         <input ref={termsRef} type="checkbox" name="trems" id="trems" />
                         <label htmlFor="trems" className="ml-2 "> I agree the <a className="font-medium transition-colors hover:text-gray-900 cursor-pointer"> Terms and Conditions</a></label>
-                    </div>
-                    <Button onClick={handleSubmitSingUp} className="mt-6" fullWidth>
+                    </div> */}
+                    <Button type="submit" className="mt-6" fullWidth>
                         sign up
                     </Button>
-                    <Button onClick={handleGoogleSingUp} className="mt-6 bg-orange-300 border text-black" fullWidth>
+                    <Button onClick={handleGoogleSingUp} className="mt-8 bg-orange-300 border text-black" fullWidth>
                         Google
                     </Button>
                     <Button onClick={handleGithubSingUp} className="mt-3 bg-gray-300 border text-black" fullWidth>
                         Github
+                    </Button>
+                    <Button onClick={handleFacebookSingUp} className="mt-3 bg-blue-400 border text-black" fullWidth>
+                        Facebook
                     </Button>
 
                     {
